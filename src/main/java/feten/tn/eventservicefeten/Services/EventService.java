@@ -30,6 +30,18 @@ public class EventService {
         return scheduleRepository.save(schedule);
     }
 
+    public List<Event> getEventsByOrganizer(String organizer) {
+        try {
+            List<Event> events = eventRepository.findByOrganizerId(organizer);
+            if (events.isEmpty()) {
+                throw new RuntimeException("No events found for organizer " + organizer);
+            }
+        return events;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }

@@ -15,12 +15,12 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @PostMapping
+    @PostMapping("/create")
     public Event create(@RequestBody Event event) {
         return eventService.createEvent(event);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Event> list() {
         return eventService.getAllEvents();
     }
@@ -39,5 +39,10 @@ public class EventController {
     public String delete(@PathVariable Long id) {
         eventService.deleteEvent(id);
         return "Deleted successfully";
+    }
+
+    @GetMapping("/by-organizer")
+    public List<Event> listByOrganizer(@RequestParam String organizer) {
+        return eventService.getEventsByOrganizer(organizer);
     }
 }
